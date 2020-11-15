@@ -22,7 +22,12 @@ export class TodoService {
     return this.todos;
   }
 
-  DeleteTodo(todoIndex: number): Todo[] {
+  setToDone(todoIndex: number): Todo[] {
+    this.todos[todoIndex].IsDone = true;
+    return this.todos;
+  }
+
+  deleteTodo(todoIndex: number): Todo[] {
     this.todos.splice(todoIndex, 1);
     return this.todos;
   }
