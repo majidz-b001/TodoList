@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {TodoService} from './todo.service';
 import {Todo} from '../Models/Todo';
 
@@ -12,17 +12,37 @@ export class AppComponent implements AfterViewInit {
   }
 
   todos: Todo[] = [];
+  @ViewChild('txtTitle') txtTitle: ElementRef;
+  @ViewChild('inputBack') inputBack: ElementRef;
 
   ngAfterViewInit(): void {
     this.todos = this.todoService.getTodos();
   }
 
-  InsertTodo(title: string): void {
-    this.todos = this.todoService.insertTodo(new Todo(title, false));
+  InsertTodo(): void {
+    if (this.txtTitle.nativeElement.value === '') {
+      this.showError();
+      return;
+    }
+    this.todos = this.todoService.insertTodo(new Todo(this.txtTitle.nativeElement.value, false));
+    this.txtTitle.nativeElement.value = '';
+    this.hideError();
   }
 
   DeleteTodo(todoIndex: number): void {
-    this.todos = this.todoService.DeleteTodo(todoIndex);
+    this.todos = this.todoService.deleteTodo(todoIndex);
+  }
+
+  TodoIsDone(todoIndex: number): void {
+    this.todos = this.todoService.setToDone(todoIndex);
+  }
+
+  showError(): void {
+    this.txtTitle.nativeElement.placeholder = 'You Must Fill Title ❌';
+  }
+
+  hideError(): void {
+    this.txtTitle.nativeElement.placeholder = 'What will you do today?';
   }
 }
 

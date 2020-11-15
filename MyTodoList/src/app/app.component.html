@@ -2,7 +2,11 @@
   <div class="col-md-12">
     <div class="main-todo-input-wrap">
       <div class="main-todo-input fl-wrap">
-        <div class="main-todo-input-item"> <input type="text" id="todo-list-item" placeholder="What will you do today?"> </div> <button class="add-items main-search-button">ADD</button>
+        <div class="main-todo-input-item" #inputBack>
+          <input #txtTitle (keyup.enter)="InsertTodo()" type="text" id="todo-list-item"
+                 placeholder="What will you do today?">
+        </div>
+        <button (click)="InsertTodo()" class="add-items main-search-button">ADD</button>
       </div>
     </div>
   </div>
@@ -11,7 +15,22 @@
   <div class="col-md-12">
     <div class="main-todo-input-wrap">
       <div class="main-todo-input fl-wrap todo-listing">
-        <ul id="list-items"></ul>
+        <ul id="list-items">
+          <li *ngFor="let item of todos;index as i;">
+            <div class="row">
+              <div class="col-9">
+                <div class="col-12" [ngSwitch]="item.IsDone">
+                  <span class="fit" *ngSwitchCase="false">{{item.Title}}</span>
+                  <span class="fit IsDone" *ngSwitchCase="true">{{item.Title}}</span>
+                </div>
+              </div>
+              <div class="col-3">
+                <a *ngIf="!item.IsDone" (click)="TodoIsDone(this.i)" class="btn btn-sm btn-block btn-dark">Finish</a>
+                <a (click)="DeleteTodo(this.i)" class="btn btn-sm btn-block btn-danger">Delete</a>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

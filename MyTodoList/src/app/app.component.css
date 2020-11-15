@@ -1,0 +1,13 @@
+ul li {
+  padding: 10px 0;
+  border-bottom: 2px solid #b183fa;
+}
+
+.IsDone {
+  text-decoration-line: line-through;
+}
+
+.fit {
+  width:100%;
+  word-wrap: break-word;
+}
