@@ -17,11 +17,13 @@ export class TodoService {
     return this.todos;
   }
 
-  insertTodo(todo: Todo): void {
+  insertTodo(todo: Todo): Todo[] {
     this.todos.push(todo);
+    return this.todos;
   }
 
-  DeleteTodo(todoIndex: number): void {
+  DeleteTodo(todoIndex: number): Todo[] {
     this.todos.splice(todoIndex, 1);
+    return this.todos;
   }
 }
